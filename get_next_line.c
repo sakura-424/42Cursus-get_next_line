@@ -28,24 +28,24 @@ char *get_next_line(int fd)
 	return (line.str);
 }
 
-#include <fcntl.h>
-int	main(int argc, char *argv[])
-{
-	int		fd;
-	char	*line;
+// #include <fcntl.h>
+// int	main(int argc, char *argv[])
+// {
+// 	int		fd;
+// 	char	*line;
 
-	if (argc != 2)
-		return (1);
-	fd = open(argv[1], O_RDONLY);
-	if (fd < 0)
-		return (printf("Error: open\n"), 1);
-	while ((line = get_next_line(fd)) != NULL)
-	{
-		printf("<bos>%s<eos>", line);
-		free(line);
-	}
-	line = get_next_line(fd);  // should be NULL
-	printf("%s<eos>\n", line);
-	free(line);
-	return (0);
-}
+// 	if (argc != 2)
+// 		return (1);
+// 	fd = open(argv[1], O_RDONLY);
+// 	if (fd < 0)
+// 		return (printf("Error: open\n"), 1);
+// 	while ((line = get_next_line(fd)) != NULL)
+// 	{
+// 		printf("<bos>%s<eos>", line);
+// 		free(line);
+// 	}
+// 	line = get_next_line(fd);  // should be NULL
+// 	printf("%s<eos>\n", line);
+// 	free(line);
+// 	return (0);
+// }

@@ -24,14 +24,16 @@ static int expand_buffer(t_string *str)
 	size_t new_capa;
 	size_t i;
 
+	i = 0;
 	if (str->capa == 0)
         new_capa = 16;
     else
-        new_capa = str->capa * 2;
+	{
+		new_capa = str->capa * 2;
+	}
 	new_str = malloc(new_capa);
 	if (!new_str)
 		return (-1);
-	i = 0;
 	while (i < str->len)
 	{
 		new_str[i] = str->str[i];
