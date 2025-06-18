@@ -49,3 +49,44 @@ char *get_next_line(int fd)
 // 	free(line);
 // 	return (0);
 // }
+
+// #include <fcntl.h>
+// #include <stdlib.h>
+// #include <stdio.h>
+
+
+// int main(int argc, char **argv)
+// {
+//     int fd;
+//     char *line;
+
+//     // ファイル名が引数でもらえているかチェック
+//     if (argc < 2)
+//     {
+//         printf("Usage: %s <filename>\n", argv[0]);
+//         return (1);
+//     }
+
+//     // ファイルを読み込み用でオープン
+//     fd = open(argv[1], O_RDONLY);
+//     if (fd < 0)
+//     {
+//         perror("open");
+//         return (1);
+//     }
+
+//     // 1行ずつget_next_lineで読み込んで出力
+//     // while ((line = get_next_line(fd)) != NULL)
+//     // {
+//     //     printf("%s", line);
+//     //     free(line);
+//     // }
+// 	if ((line = get_next_line(fd)) != NULL)
+//     {
+//         printf("%s", line);
+//         free(line);
+//     }
+
+//     close(fd);
+//     return (0);
+// }
