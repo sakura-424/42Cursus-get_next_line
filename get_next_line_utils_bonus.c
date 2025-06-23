@@ -1,33 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skatsuya < skatsuya@student.42tokyo.jp>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/23 19:01:35 by skatsuya          #+#    #+#             */
+/*   Updated: 2025/06/23 19:03:02 by skatsuya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line_bonus.h"
 
-void ft_init_string(t_string *str)
+void	ft_init_string(t_string *str)
 {
 	if (!str)
-		return;
+		return ;
 	str->str = NULL;
 	str->len = 0;
 	str->capa = 0;
 }
 
-void ft_free_string(t_string *str)
+void	ft_free_string(t_string *str)
 {
 	if (!str)
-		return;
+		return ;
 	if (str->str)
 		free(str->str);
 	ft_init_string(str);
 }
 
-static int expand_buffer(t_string *str)
+static int	expand_buffer(t_string *str)
 {
-	char *new_str;
-	size_t new_capa;
-	size_t i;
+	char	*new_str;
+	size_t	new_capa;
+	size_t	i;
 
 	i = 0;
 	if (str->capa == 0)
-        new_capa = 16;
-    else
+		new_capa = 16;
+	else
 	{
 		new_capa = str->capa * 2;
 	}
@@ -45,7 +57,8 @@ static int expand_buffer(t_string *str)
 	str->capa = new_capa;
 	return (0);
 }
-int ft_putc(t_string *str, char c)
+
+int	ft_putc(t_string *str, char c)
 {
 	if (str->len + 1 > str->capa)
 	{
@@ -56,11 +69,11 @@ int ft_putc(t_string *str, char c)
 	return (0);
 }
 
-void clean_fd_buffer(int fd)
+void	clean_fd_buffer(int fd)
 {
-	t_fd_buffer *current;
-	t_fd_buffer *prev;
-	t_fd_buffer **fd_list_ptr;
+	t_fd_buffer	*current;
+	t_fd_buffer	*prev;
+	t_fd_buffer	**fd_list_ptr;
 
 	fd_list_ptr = NULL;
 	prev = NULL;

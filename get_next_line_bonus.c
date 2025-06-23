@@ -1,16 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skatsuya < skatsuya@student.42tokyo.jp>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/23 19:03:11 by skatsuya          #+#    #+#             */
+/*   Updated: 2025/06/23 19:29:40 by skatsuya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line_bonus.h"
 
-static char *clean_and_return(t_string *line, char *ret_val)
+static char	*clean_and_return(t_string *line, char *ret_val)
 {
 	ft_free_string(line);
 	return (ret_val);
 }
 
-t_fd_buffer *get_fd_buffer(int fd)
+t_fd_buffer	*get_fd_buffer(int fd)
 {
-	static t_fd_buffer *fd_list;
-	t_fd_buffer *current;
-	t_fd_buffer *new_node;
+	static t_fd_buffer	*fd_list;
+	t_fd_buffer			*current;
+	t_fd_buffer			*new_node;
 
 	fd_list = NULL;
 	current = fd_list;
@@ -28,9 +40,10 @@ t_fd_buffer *get_fd_buffer(int fd)
 	return (new_node);
 }
 
-static int ft_getc_bonus(int fd)
+static int	ft_getc_bonus(int fd)
 {
-	t_fd_buffer *buffer;
+	t_fd_buffer	*buffer;
+
 	buffer = get_fd_buffer(fd);
 	if (!buffer)
 		return (EOF);
@@ -45,20 +58,22 @@ static int ft_getc_bonus(int fd)
 	return ((unsigned char)*buffer->buf_pos++);
 }
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
-	t_string line;
-	int c;
+	t_string	line;
+	int			c;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || fd > FD_MAX)
 		return (NULL);
 	ft_init_string(&line);
-	while ((c = ft_getc_bonus(fd)) != EOF)
+	c = ft_getc_bonus(fd);
+	while (c != EOF)
 	{
 		if (ft_putc(&line, (char)c) == -1)
 			return (clean_and_return(&line, NULL));
 		if (c == '\n')
-			break;
+			break ;
+		c = ft_getc_bonus(fd);
 	}
 	if (line.len == 0)
 		return (clean_and_return(&line, NULL));

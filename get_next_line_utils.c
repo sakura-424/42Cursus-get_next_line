@@ -1,33 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skatsuya < skatsuya@student.42tokyo.jp>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/23 18:56:49 by skatsuya          #+#    #+#             */
+/*   Updated: 2025/06/23 19:35:33 by skatsuya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
-void ft_init_string(t_string *str)
+void	ft_init_string(t_string *str)
 {
 	if (!str)
-		return;
+		return ;
 	str->str = NULL;
 	str->len = 0;
 	str->capa = 0;
 }
 
-void ft_free_string(t_string *str)
+void	ft_free_string(t_string *str)
 {
 	if (!str)
-		return;
+		return ;
 	if (str->str)
 		free(str->str);
 	ft_init_string(str);
 }
 
-static int expand_buffer(t_string *str)
+static int	expand_buffer(t_string *str)
 {
-	char *new_str;
-	size_t new_capa;
-	size_t i;
+	char	*new_str;
+	size_t	new_capa;
+	size_t	i;
 
 	i = 0;
 	if (str->capa == 0)
-        new_capa = 16;
-    else
+		new_capa = 16;
+	else
 	{
 		new_capa = str->capa * 2;
 	}
@@ -45,7 +57,8 @@ static int expand_buffer(t_string *str)
 	str->capa = new_capa;
 	return (0);
 }
-int ft_putc(t_string *str, char c)
+
+int	ft_putc(t_string *str, char c)
 {
 	if (str->len + 1 > str->capa)
 	{
@@ -56,16 +69,21 @@ int ft_putc(t_string *str, char c)
 	return (0);
 }
 
-int ft_getc(int fd)
+int	ft_getc(int fd)
 {
-	static char buf[BUFFER_SIZE];
-	static char *bufp;
-	static int n = 0;
+	static char	buf[BUFFER_SIZE];
+	static char	*bufp;
+	static int	n = 0;
 
 	if (n <= 0)
 	{
 		n = read(fd, buf, BUFFER_SIZE);
-		if (n <= 0)
+		if (n < 0)
+		{
+			n = 0;
+			return (EOF);
+		}
+		if (n == 0)
 			return (EOF);
 		bufp = buf;
 	}

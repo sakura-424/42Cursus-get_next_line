@@ -1,25 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skatsuya < skatsuya@student.42tokyo.jp>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/23 18:55:48 by skatsuya          #+#    #+#             */
+/*   Updated: 2025/06/23 19:29:22 by skatsuya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
-static char *clean_and_return(t_string *line, char *ret_val)
+static char	*clean_and_return(t_string *line, char *ret_val)
 {
 	ft_free_string(line);
 	return (ret_val);
 }
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
-	t_string line;
-	int c;
+	t_string	line;
+	int			c;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	ft_init_string(&line);
-	while ((c = ft_getc(fd)) != EOF)
+	c = ft_getc(fd);
+	while (c != EOF)
 	{
 		if (ft_putc(&line, (char)c) == -1)
 			return (clean_and_return(&line, NULL));
 		if (c == '\n')
-			break;
+			break ;
+		c = ft_getc(fd);
 	}
 	if (line.len == 0)
 		return (clean_and_return(&line, NULL));
@@ -53,7 +67,6 @@ char *get_next_line(int fd)
 // #include <fcntl.h>
 // #include <stdlib.h>
 // #include <stdio.h>
-
 
 // int main(int argc, char **argv)
 // {
